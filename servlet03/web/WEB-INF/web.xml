@@ -7,6 +7,10 @@
     <servlet>
         <servlet-name>configServlet2</servlet-name>
         <servlet-class>com.shamengxin.javaweb.servlet.ConfigTestServlet2</servlet-class>
+        <init-param>
+            <param-name>key</param-name>
+            <param-value>value</param-value>
+        </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>configServlet2</servlet-name>

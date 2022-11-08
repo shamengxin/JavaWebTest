@@ -17,5 +17,8 @@ public class ConfigTestServlet2 extends GenericServlet {
         //输出该对象
         //org.apache.catalina.core.StandardWrapperFacade@6991a4c9
         out.print("ServletConfig对象是："+config);
+
+        String value = config.getInitParameter("key");
+        out.print("<br>"+value);
     }
 }

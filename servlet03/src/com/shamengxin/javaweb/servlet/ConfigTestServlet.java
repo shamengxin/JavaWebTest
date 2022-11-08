@@ -107,5 +107,24 @@ public class ConfigTestServlet extends GenericServlet {
         // java.lang.String	getInitParameter(java.lang.String name) 通过初始化参数的name获取value
         /*String driver = config.getInitParameter("driver");
         out.print(driver);*/
+
+        // 实际上获取一个Servlet对象的初始化参数，可以不用获取ServletConfig对象。直接通过this也可以。
+        Enumeration<String> names = this.getInitParameterNames();
+        while (names.hasMoreElements()){
+            String name = names.nextElement();
+            String value = this.getInitParameter(name);
+            //打印到后台
+            System.out.println(name+"="+value);
+        }
+
+        // 怎么获取ServletContext对象呢？
+        // 第一种方式：通过ServletConfig对象获取ServletContext对象。
+        ServletContext application = config.getServletContext();
+        //输出
+        out.print("<br>"+application);//org.apache.catalina.core.ApplicationContextFacade@5229da13
+
+        // 第二种方式：通过this也可以获取ServletContext对象。
+        ServletContext application2 = this.getServletContext();
+        out.print("<br>"+application);//org.apache.catalina.core.ApplicationContextFacade@5229da13
     }
 }
