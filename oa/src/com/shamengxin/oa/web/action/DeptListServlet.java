@@ -82,7 +82,7 @@ public class DeptListServlet extends HttpServlet {
                 out.println("                <td>"+dname+"</td>");
                 out.println("                <td>");
                 out.println("                    <a href='javascript:void(0)' onclick='del("+deptno+")' >É¾³ı</a>");
-                out.println("                    <a href='edit.html'>ĞŞ¸Ä</a>");
+                out.println("                    <a href='"+contextPath+"/dept/edit?deptno="+deptno+"'>ĞŞ¸Ä</a>");
                 out.println("                    <a href='"+contextPath+"/dept/detail?deptno="+deptno+"'>ÏêÇé</a>");
                 out.println("                </td>");
                 out.println("            </tr>");
