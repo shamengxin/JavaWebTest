@@ -43,10 +43,12 @@ public class DeptModifyServlet extends HttpServlet {
         if(count==1){
             //更新成功
             //跳转到部门列表页面，（部门列表页面是通过java程序动态生成的，所以还需要再次执行另一个servlet）
-            request.getRequestDispatcher("/dept/list").forward(request,response);
+            //request.getRequestDispatcher("/dept/list").forward(request,response);
+            response.sendRedirect(request.getContextPath()+"/dept/list");
         }else{
             //更新失败
-            request.getRequestDispatcher("/error.html").forward(request,response);
+            //request.getRequestDispatcher("/error.html").forward(request,response);
+            response.sendRedirect(request.getContextPath()+"/error.html");
         }
     }
 }

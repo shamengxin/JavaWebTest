@@ -52,10 +52,12 @@ public class DeptDeleteServlet extends HttpServlet {
             //删除成功
             //仍然要跳转到部门列表页面
             //部门列表页面的显示需要执行另一个Servlet。怎么办？转发。
-            request.getRequestDispatcher("/dept/list").forward(request, response);
+            //request.getRequestDispatcher("/dept/list").forward(request, response);
+            response.sendRedirect(request.getContextPath()+"/dept/list");
         }else{
             //删除失败
-            request.getRequestDispatcher("/error.html").forward(request,response);
+            //request.getRequestDispatcher("/error.html").forward(request,response);
+            response.sendRedirect(request.getContextPath()+"/error.html");
         }
 
     }

@@ -1,4 +1,4 @@
-package com.shamengxin.oa.util;
+package com.shamengxin.javaweb.util;
 
 import java.sql.*;
 import java.util.ResourceBundle;
@@ -6,11 +6,11 @@ import java.util.ResourceBundle;
 /**
  * JDBCde 的工具类
  */
-public class DBUtil {
+public class Util {
     // 静态变量：在类加载时执行。
     // 并且是有顺序的。自上而下的顺序。
     // 属性资源文件绑定
-    private static ResourceBundle bundle=ResourceBundle.getBundle("resource.jdbc");
+    private static ResourceBundle bundle=ResourceBundle.getBundle("resource.mysql");
     //根据属性文件key获取value
     private static String driver=bundle.getString("driver");
     private static String url=bundle.getString("url");
@@ -19,8 +19,14 @@ public class DBUtil {
 
     static {
 
+        // 注册驱动（注册驱动只需要注册一次，放在静态代码块当中。DBUtil类加载的时候执行。）
         try {
+
+            // 如果连接oracle数据库的时候，还需要修改java代码，显然违背了OCP开闭原则。
+            // OCP开闭原则：对扩展开放，对修改关闭。（什么是符合OCP呢？在进行功能扩展的时候，不需要修改java源代码。）
+            //Class.forName("com.mysql.jdbc.Driver");
             Class.forName(driver);
+
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

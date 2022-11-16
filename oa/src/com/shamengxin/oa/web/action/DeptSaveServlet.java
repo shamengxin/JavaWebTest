@@ -43,10 +43,17 @@ public class DeptSaveServlet extends HttpServlet {
         if(count==1){
             // 保存成功跳转到列表页面
             //转发是一次请求
-            request.getRequestDispatcher("/dept/list").forward(request,response);
+            //request.getRequestDispatcher("/dept/list").forward(request,response);
+
+            // 这里最好使用重定向（浏览器会发一次全新的请求。）
+            // 浏览器在地址栏上发送请求，这个请求是get请求。
+            response.sendRedirect(request.getContextPath()+"/dept/list");
         }else{
             // 保存失败跳转到错误页面
-            request.getRequestDispatcher("/error.html").forward(request,response);
+            //request.getRequestDispatcher("/error.html").forward(request,response);
+
+            // 这里也建议使用重定向。
+            response.sendRedirect(request.getContextPath()+"/error.html");
         }
     }
 }
