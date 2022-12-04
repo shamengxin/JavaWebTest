@@ -3,10 +3,7 @@ package com.shamengxin.oa.web.action;
 import com.shamengxin.oa.utils.DBUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.*;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -80,6 +77,25 @@ public class UserServlet extends HttpServlet {
             //获取session对象（这里的要求是：必须获取到session，没有session也要新建一个session对象。）
             HttpSession session = request.getSession();//session对象一定不是null
             session.setAttribute("username",username);
+
+            //登录成功了，并且用户确实选择了“十天内免登录功能”
+            String f = request.getParameter("f");
+            if("1".equals(f)){
+                //创建cookie对象存储登录名
+                Cookie cookie1 = new Cookie("username",username);
+                //创建cookie对象存储密码
+                Cookie cookie2 = new Cookie("password", password);//真实情况下是加密的。
+                //设置cookie的有效期为十天
+                cookie1.setMaxAge(60*60*24*10);
+                cookie2.setMaxAge(60*60*24*10);
+                //设置cookie的path（只要访问这个应用，浏览器就一定要携带这两个cookie）
+                cookie1.setPath(request.getContextPath());
+                cookie2.setPath(request.getContextPath());
+                //响应cookie给浏览器
+                response.addCookie(cookie1);
+                response.addCookie(cookie2);
+
+            }
 
             //成功，跳转到用户列表
             response.sendRedirect(request.getContextPath()+"/dept/list");

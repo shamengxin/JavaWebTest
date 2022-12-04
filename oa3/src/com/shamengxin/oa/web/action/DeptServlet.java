@@ -43,7 +43,7 @@ public class DeptServlet extends HttpServlet {
             //跳转到登陆页面
             //response.sendRedirect("/oa/index.jsp");
             //response.sendRedirect("/oa");
-            response.sendRedirect(request.getContextPath());//访问web站点的根即可，自动找到欢迎页面。
+            response.sendRedirect(request.getContextPath()+"/index.jsp");//访问web站点的根即可，自动找到欢迎页面。
 
         }
 
