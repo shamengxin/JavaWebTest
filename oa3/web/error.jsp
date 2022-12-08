@@ -11,6 +11,6 @@
     <title>登陆失败</title>
 </head>
 <body>
-登录失败，请<a href="<%=request.getContextPath()%>/index.jsp">重新登录</a>
+登录失败，请<a href="${pageContext.request.contextPath}/index.jsp.jsp">重新登录</a>
 </body>
 </html>

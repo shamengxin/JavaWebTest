@@ -1,28 +1,28 @@
-<%@ page import="java.util.List" %>
-<%@ page import="com.shamengxin.oa.bean.Dept" %>
-<%@page contentType="text/html; charset=UTF-8"%>
 
-<%--毙掉session对象，写上这个，内置对象就不能用了。--%>
-<%--<%@page session="false" %>--%>
+<%@page contentType="text/html; charset=UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
 		<title>部门列表页面</title>
+		<%--设置网页的基础路径是：http://localhost:8080/oa/--%>
+		<%--<base href="http://localhost:8080/oa/">--%>
+		<base href="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/">
 		<script type='text/javascript'>
 			function del(dno){
 				if(window.confirm('亲，删了不可恢复哦！')){
-					document.location.href='<%=request.getContextPath()%>/dept/delete?deptno='+dno;
+					/*注意html的base标签可能对JS代码不起作用，所以JS代码最好前面写上“/oa”*/
+					document.location.href='${pageContext.request.contextPath}/dept/delete?deptno='+dno;
 				}
 			}
 		</script>
 	</head>
 	<body>
 
-	<%--显示一个登录名--%>
-	<h3>欢迎<%=session.getAttribute("username")%></h3>
-	<a href="<%=request.getContextPath()%>/user/exit">[退出系统]</a>
+	<h3>欢迎${username}</h3>
+	<a href="user/exit">[退出系统]</a>
 
 		<h1 align="center">部门列表</h1>
 		<hr>
@@ -34,35 +34,22 @@
 				<th>操作</th>
 			</tr>
 
-			<%
-				//从request域当中取出集合
-				List<Dept> deptList=(List<Dept>)request.getAttribute("deptList");
-				//循环遍历
-				int i=0;
-				for(Dept dept:deptList){
-					//在后台输出
-					//System.out.println(dept.getDname());
-					//把部门名字输出到浏览器
-					//out.write(dept.getDname());
-			%>
+			<c:forEach items="${deptList}" varStatus="deptStatus" var="dept">
+				<tr>
+					<td>${deptStatus.count}</td>
+					<td>${dept.deptno}</td>
+					<td>${dept.dname}</td>
+					<td>
+						<a href="javascript:void(0)" onclick="del(${dept.deptno})" >删除</a>
+						<a href="dept/detail?f=edit&deptno=${dept.deptno}">修改</a>
+						<a href="dept/detail?f=detail&deptno=${dept.deptno}">详情</a>
+					</td>
+				</tr>
+			</c:forEach>
 
-			<tr>
-				<td><%=++i%></td>
-				<td><%=dept.getDeptno()%></td>
-				<td><%=dept.getDname()%></td>
-				<td>
-					<a href="javascript:void(0)" onclick="del(<%=dept.getDeptno()%>)" >删除</a>
-					<a href="<%=request.getContextPath()%>/dept/detail?f=edit&deptno=<%=dept.getDeptno()%>">修改</a>
-					<a href="<%=request.getContextPath()%>/dept/detail?f=detail&deptno=<%=dept.getDeptno()%>">详情</a>
-				</td>
-			</tr>
-
-			<%
-				}
-			%>
 		</table>
 		
 		<hr>
-		<a href="<%=request.getContextPath()%>/add.jsp">新增部门</a>
+		<a href="${pageContext.request.contextPath}/add.jsp">新增部门</a>
 	</body>
 </html>

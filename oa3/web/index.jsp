@@ -19,7 +19,7 @@
 		<%--<%=request.getContextPath()%>--%><%--  out.print(request.getContestPath());  --%>
 		<h1>LOGIN PAGE</h1>
 		<%--前端页面发送请求的时候，请求路径以“/”开始，带项目名的。--%>
-		<form action="<%=request.getContextPath()%>/user/login" method="post">
+		<form action="${pageContext.request.contextPath}/user/login" method="post">
 			username:<input type="text" name="username"><br>
 			password:<input type="password" name="password"><br>
 			<input type="checkbox" name="f" value="1" >十天内免登录<br>
