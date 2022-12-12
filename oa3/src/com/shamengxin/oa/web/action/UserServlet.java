@@ -1,5 +1,6 @@
 package com.shamengxin.oa.web.action;
 
+import com.shamengxin.oa.bean.User;
 import com.shamengxin.oa.utils.DBUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -32,6 +33,10 @@ public class UserServlet extends HttpServlet {
         //获取session对象，销毁session
         HttpSession session = request.getSession(false);
         if (session!=null) {
+
+            //从session域中删除User对象
+            session.removeAttribute("user");
+
             //手动销毁session对象
             session.invalidate();
 
@@ -102,7 +107,10 @@ public class UserServlet extends HttpServlet {
         if (success){
             //获取session对象（这里的要求是：必须获取到session，没有session也要新建一个session对象。）
             HttpSession session = request.getSession();//session对象一定不是null
-            session.setAttribute("username",username);
+            //session.setAttribute("username",username);
+
+            User user=new User(username,password);
+            session.setAttribute("user",user);
 
             //登录成功了，并且用户确实选择了“十天内免登录功能”
             String f = request.getParameter("f");

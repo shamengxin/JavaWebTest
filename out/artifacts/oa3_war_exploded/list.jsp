@@ -21,7 +21,7 @@
 	</head>
 	<body>
 
-	<h3>欢迎${username}</h3>
+	<h3>欢迎,在线人数${onlinecount}人</h3>
 	<a href="user/exit">[退出系统]</a>
 
 		<h1 align="center">部门列表</h1>

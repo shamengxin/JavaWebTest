@@ -1,5 +1,6 @@
 package com.shamengxin.oa.web.action;
 
+import com.shamengxin.oa.bean.User;
 import com.shamengxin.oa.utils.DBUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -55,7 +56,11 @@ public class WelcomeServlet extends HttpServlet {
             if (success){
                 //获取session
                 HttpSession session = request.getSession();
-                session.setAttribute("username",username);
+                //session.setAttribute("username",username);
+
+                User user=new User(username,password);
+                session.setAttribute("user",user);
+
                 //正确，表示登录成功
                 response.sendRedirect(request.getContextPath()+"/dept/list");
             }else {
