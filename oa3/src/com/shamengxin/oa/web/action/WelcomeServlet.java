@@ -9,6 +9,9 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.sql.*;
 
+/*
+这里配置了欢赢页，配置为此servlet，首先判断有无10天内免登录，在跳转到index.jsp中。
+ */
 @WebServlet("/welcome")
 public class WelcomeServlet extends HttpServlet {
     @Override
